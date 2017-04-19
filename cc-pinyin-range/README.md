@@ -26,7 +26,7 @@ func main() {
 	py.Upper = false
 	p = py.Convert(s)
 	fmt.Println(p)
-    // Ming-Zhu-：《Hong-Lou-Meng-》〖Qing-〗Cao-Xue-Qin- Zhu-、Gao-Zuo- Xu-／『Ren-Min-Wen-Xue-』Chu-Ban-She-／1996—9Yue-30Ri-／59.70【Yuan-】，《San-Guo-Yan-Yi-》〖Ming-〗Luo-Guan-Zhong-。
+    // ming-zhu-：《hong-lou-meng-》〖qing-〗cao-xue-qin- zhu-、gao-zuo- xu-／『ren-min-wen-xue-』chu-ban-she-／1996—9yue-30ri-／59.70【yuan-】，《san-guo-yan-yi-》〖ming-〗luo-guan-zhong-。
 }
 ```
 
