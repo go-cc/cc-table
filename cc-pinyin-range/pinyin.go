@@ -2,7 +2,8 @@
 package pybr
 
 import (
-	"strings"
+	"bytes"
+
 	"github.com/axgle/mahonia"
 )
 
@@ -17,61 +18,66 @@ type Pinyin struct {
 	Upper bool
 }
 
-func New() Pinyin {
+func New(split string) Pinyin {
 	return Pinyin{
-		Split: " ",
+		Split: split,
 		Upper: true,
 	}
 }
 
-func (c *Pinyin) Convert(s string) (string, error) {
-	var pyStr string
-
-	pyArr := c.gbkToPinyin(utf8ToGbk(s))
-	pyStr = strings.Join(pyArr, c.Split)
-
-	return pyStr, nil
+//get chinese pinyin number code
+//param s must be chinese character with utf8 encoding
+func Code(s string) int {
+	//print(s)
+	gbkString := UTF8ToGBK(s)
+	//print(len(gbkString))
+	var i1, i2 int
+	i1 = int(gbkString[0])
+	i2 = int(gbkString[1])
+	return i1*256 + i2 - 65536
 }
 
-func (c *Pinyin) gbkToPinyin(gbk string) []string {
-	var pyStr []string
+// converts utf8 chinese to pinyin
+func (c *Pinyin) Convert(s string) string {
+	pyString := bytes.NewBufferString("")
+	var str string
+	var code int
 
-	for i := 0; i < len(gbk); i++ {
-		p := int(gbk[i])
-		if p > 0 && p < 160 {
-			pyStr = append(pyStr, string(gbk[i]))
+	for _, rune := range s {
+		str = string(rune)
+		//println(str + ": " + pyString.String())
+
+		if rune <= '~' {
+			pyString.WriteString(str)
 		} else {
-			i++
-			q := int(gbk[i])
-			p = p*256 + q - 65536
-
-			py := pinyinSearch(p)
-			if py != "" {
-				if c.Upper == false {
-					py = strings.ToLower(py)
+			code = Code(str)
+			if code > 0 && code < 160 {
+				pyString.WriteString(str)
+			} else {
+				if v, ok := tableMap[code]; ok { //map by table
+					pyString.WriteString(v + c.Split)
+				} else {
+					found := false
+					for i := pyTableLen - 1; i >= 0; i-- {
+						if pyValue[i] <= code {
+							pyString.WriteString(pyName[i] + c.Split)
+							found = true
+							break
+						}
+					}
+					if !found {
+						pyString.WriteString(str)
+					}
 				}
-				pyStr = append(pyStr, py)
 			}
 		}
 	}
-
-	return pyStr
+	return pyString.String()
 }
 
-func utf8ToGbk(s string) string {
-	enc := mahonia.NewEncoder("gbk")
+//define func UTF8ToGBK by using mahonia package
+var enc = mahonia.NewEncoder("gbk")
+
+func UTF8ToGBK(s string) string {
 	return enc.ConvertString(s)
-}
-
-func pinyinSearch(p int) string {
-	if v, ok := tableMap[p]; ok {
-		return v
-	} else {
-		for i := pyTableLen - 1; i >= 0; i-- {
-			if pyValue[i] <= p {
-				return pyName[i]
-			}
-		}
-	}
-	return ""
 }
