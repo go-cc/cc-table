@@ -1,4 +1,5 @@
-package pinyin
+// package pybr stands for pinyin by range
+package pybr
 
 //code->pinyin mapping table
 /*
