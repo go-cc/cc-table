@@ -3,6 +3,7 @@ package pybr
 
 import (
 	"bytes"
+	"strings"
 
 	"github.com/axgle/mahonia"
 )
@@ -60,7 +61,11 @@ func (c *Pinyin) Convert(s string) string {
 					found := false
 					for i := pyTableLen - 1; i >= 0; i-- {
 						if pyValue[i] <= code {
-							pyString.WriteString(pyName[i] + c.Split)
+							py := pyName[i]
+							if !c.Upper {
+								py = strings.ToLower(py)
+							}
+							pyString.WriteString(py + c.Split)
 							found = true
 							break
 						}
