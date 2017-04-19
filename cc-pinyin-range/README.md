@@ -34,6 +34,6 @@ func main() {
 
 # Credits
 
-Ported from from [l2x/golang-chinese-to-pinyin](https://github.com/l2x/golang-chinese-to-pinyin).
+Ported from [scofieldpeng/golang-chinese-to-pinyin](https://github.com/scofieldpeng/golang-chinese-to-pinyin/), which is from [l2x/golang-chinese-to-pinyin](https://github.com/l2x/golang-chinese-to-pinyin).
 
 The code->pinyin mapping table is originally coded By [github.com/axgle](https://github.com/axgle) and [Leon @ github.com/leonzhu1981](https://github.com/leonzhu1981).
