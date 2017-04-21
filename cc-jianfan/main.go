@@ -29,8 +29,7 @@ func init() {
 func T2S(s string) string {
 	var chs []rune
 	for _, runeValue := range s {
-		v, ok := t2sMapping[runeValue]
-		if ok {
+		if v, ok := t2sMapping[runeValue]; ok {
 			chs = append(chs, v)
 		} else {
 			chs = append(chs, runeValue)
@@ -43,8 +42,7 @@ func T2S(s string) string {
 func S2T(s string) string {
 	var cht []rune
 	for _, runeValue := range s {
-		v, ok := s2tMapping[runeValue]
-		if ok {
+		if v, ok := s2tMapping[runeValue]; ok {
 			cht = append(cht, v)
 		} else {
 			cht = append(cht, runeValue)
