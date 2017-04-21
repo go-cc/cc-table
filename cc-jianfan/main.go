@@ -21,7 +21,10 @@ func init() {
 	for index, runeValueT := range ChT {
 		runeValueS, _ := utf8.DecodeRuneInString(ChS[index:])
 		t2sMapping[runeValueT] = runeValueS
-		s2tMapping[runeValueS] = runeValueT
+		// Simplified => Traditional is one to many, pick first
+		if _, ok := s2tMapping[runeValueS]; !ok {
+			s2tMapping[runeValueS] = runeValueT
+		}
 	}
 }
 
