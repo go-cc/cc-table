@@ -1,6 +1,4 @@
 // Package ccst provides Conversion between Simplified and Traditional Chinese-Characters.
-// ported from the lastest version from gojianfan 
-// https://raw.githubusercontent.com/siongui/gojianfan/32795bb4bbc71a0a3a6c62907b1322355c2d49ae/jianfan.go
 //
 // This is a simple implementation of Chinese one-to-one conversion.
 // If you need more advanced converter, please visit
@@ -16,7 +14,7 @@ var t2sMapping = make(map[rune]rune)
 var s2tMapping = make(map[rune]rune)
 
 func init() {
-	if len(ChT) != len(ChS) {
+	if len([]rune(ChT)) != len([]rune(ChS)) {
 		panic("cht and chs data length not equal")
 	}
 
