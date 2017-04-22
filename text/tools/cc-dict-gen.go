@@ -25,6 +25,7 @@ func main() {
 
 	// == Match & Process
 	s.AppendStmt(nil, func(s *awk.Script) {
+		print(s.NR)
 		c1 := s.F(1).String()
 		for ii := 2; ii <= s.NF; ii++ {
 			c2 := s.F(ii).String()
@@ -32,11 +33,12 @@ func main() {
 				continue
 			}
 			c2 = s.F(ii).String()
-			fmt.Printf("%v:%v\n", c1, c2)
+			// fmt.Printf("%v:%v\n", c1, c2)
 			// fmt.Printf("%+q:%+q\n", c1, c2)
 			sa.Set("cS", fmt.Sprintf("%s%+q", sa.Get("cS"), c1))
 			sa.Set("cT", fmt.Sprintf("%s%+q", sa.Get("cT"), c2))
 		}
+		print(" ")
 	})
 
 	// == END
@@ -45,7 +47,14 @@ func main() {
 		// s.Println(sa.Get("cS"), "\n", sa.Get("cT"))
 		cS := dqRegex.ReplaceAllString(sa.Get("cS").String(), "")
 		cT := dqRegex.ReplaceAllString(sa.Get("cT").String(), "")
-		fmt.Printf("%s\n%s\n", cS, cT)
+		fmt.Printf(`// Package ccst: Chinese-Characters Simplified <=> Traditional
+package ccst
+
+const ChS = "%s"`+`
+
+const ChT = "%s"
+
+`, cS, cT)
 	}
 
 	if err := s.Run(os.Stdin); err != nil {
