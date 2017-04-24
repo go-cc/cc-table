@@ -1,0 +1,15 @@
+U+3401 kMandarin tiàn
+U+3406 kCantonese zaan2
+U+3406 kMandarin yǐn
+U+340C kCantonese zyu4
+U+340C kMandarin yí
+U+3437 kMandarin mǎ
+U+3437 kCantonese maa6
+U+884C kMandarin xíng
+U+884C kMandarin háng
+U+884C kCantonese haang4
+U+884C kCantonese hang4
+U+884C kCantonese hang6
+U+884C kCantonese hong4
+U+3437 kMandarin mǎ
+U+3437 kCantonese maa6
