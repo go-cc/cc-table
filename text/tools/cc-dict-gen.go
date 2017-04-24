@@ -33,8 +33,8 @@ func main() {
 				continue
 			}
 			c2 = s.F(ii).String()
-			// fmt.Printf("%v:%v\n", c1, c2)
-			// fmt.Printf("%+q:%+q\n", c1, c2)
+			fmt.Fprintf(os.Stderr, "%v:%v\n", c1, c2)
+			//fmt.Fprintf(os.Stderr, "%v:%v (%+q:%+q)\n", c1, c2, c1, c2)
 			sa.Set("cS", fmt.Sprintf("%s%+q", sa.Get("cS"), c1))
 			sa.Set("cT", fmt.Sprintf("%s%+q", sa.Get("cT"), c2))
 		}
@@ -63,6 +63,7 @@ const ChT = "%s"
 	if err := s.Run(os.Stdin); err != nil {
 		panic(err)
 	}
+	//fmt.Fprintf(os.Stderr, "Succeeded")
 }
 
 /*
