@@ -1,0 +1,1 @@
+../../external/jianfan-opencc/data/dictionary/STCharacters.txt
