@@ -28,7 +28,7 @@ Given the package size info as following, decided to remove the wqy-zenhei (æ–‡æ
     15581 fonts-noto-hinted
     5167 fonts-wqy-microhei
 
-The file 69-language-selector-zh-cn.conf can be found in this directory. 
+The file **69-language-selector-zh-cn-ZZ.conf** can be found in this directory. 
 
 
 Ref:
