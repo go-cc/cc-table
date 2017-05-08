@@ -1,0 +1,9 @@
+ABCDG: A B C D G 
+ABCDK: A B C D K 
+ABCF: A B C F 
+ABCGHIJK: A B C G H I J K 
+ABCGLL: A B C G L L 
+AK: A K 
+ALMNOPQ: A L M N O P Q 
+AMOQ: A M O Q 
+BDD: B D D 

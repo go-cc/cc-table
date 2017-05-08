@@ -31,5 +31,12 @@ cat ../../info/duoyinzi/duoyinzi-phrase-J.txt | cc2py -t 3 -p -i
 grep -E "`cat ../../info/duoyinzi/duoyinzi-dict-J.txt | tr '\n' '|' | sed 's/|*$//'`" ../../info/duoyinzi/duoyinzi-phrase-J.txt
 ```
 
+## duoyinzi-dict-gen.go
+
+```sh
+duoyinzi-dict-gen.pl > duoyinzi-dict-gen_test.txt
+
+cat duoyinzi-dict-gen_test.txt | go run duoyinzi-dict-gen.go 
+```
 
 
