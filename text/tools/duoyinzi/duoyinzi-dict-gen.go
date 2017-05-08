@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spakin/awk"
 )
@@ -23,10 +24,10 @@ func main() {
 
 	// == BEGIN
 	sa := s.NewValueArray()
-	// last word, its matching count and length
+	// last word, and its length
 	sa.Set("wLast", "")
-	sa.Set("cMatch", 0)
 	sa.Set("cLength", 0)
+	bufRet.WriteByte('{')
 
 	// == Match & Process
 	s.AppendStmt(nil, func(s *awk.Script) {
@@ -37,30 +38,36 @@ func main() {
 		ww = ww[:len(ww)-1] // last char is ":"
 		print(s.NR, ww, py)
 
+		// count of current word length and match length with last word
 		cLength := sa.Get("cLength").Int()
 		cMatch := commPrefixLen(sa.Get("wLast").String(), ww)
 		print(" ", cLength, " ", cMatch)
+
+		lDiff := cLength - cMatch
+		if lDiff == 0 && sa.Get("wLast").String() != "" {
+			// the new phrase is longer than last one, ignore it
+			print("\n")
+			s.Next()
+		}
+
 		sa.Set("wLast", ww)
 		//print(" Saved:", sa.Get("wLast").String())
-
-		if lDiff := cLength - cMatch; lDiff == 0 {
-			// the new phrase is longer than last one, ignore it
-			s.Next()
-		} else {
-			// Only partial match, close the json, with (lDiff-1) closes
-			for ii := 1; ii < lDiff; ii++ {
-				fmt.Fprintf(bufRet, "},")
-			}
+		// Only partial match, close the json, with (lDiff-1) closes
+		for ii := 1; ii < lDiff; ii++ {
+			fmt.Fprintf(bufRet, "},")
 		}
-		outputEntry(ww, py, sa.Get("cMatch").Int())
-		sa.Set("cMatch", cMatch)
+		outputEntry(ww, py, cMatch)
 		sa.Set("cLength", len([]rune(ww)))
 	})
 
 	// == END
 	s.End = func(s *awk.Script) {
-		ret := bufRet.String()
-		fmt.Printf("%s}\n", ret)
+		for ii := 0; ii < sa.Get("cLength").Int(); ii++ {
+			bufRet.WriteByte('}')
+		}
+		//ret := bufRet.String()
+		ret := strings.Replace(bufRet.String(), ",}", "}", -1)
+		fmt.Printf("%s\n", ret)
 	}
 
 	if err := s.Run(os.Stdin); err != nil {
@@ -69,7 +76,7 @@ func main() {
 }
 
 func outputEntry(s, py string, start int) {
-	print(" output:", s, " from ", start, "\n")
+	print(" output ", s, " from ", start, "\n")
 	rs := []rune(s)
 
 	for ii := start; ii < len(rs)-1; ii++ {
@@ -79,14 +86,15 @@ func outputEntry(s, py string, start int) {
 }
 
 func commPrefixLen(s1, s2 string) int {
-	print(" compare:", s1, "<=>", s2)
+	print(" compare ", s1, ":", s2)
 	rs1, rs2 := []rune(s1), []rune(s2)
-	for ii := 0; ii < min(len(rs1), len(rs2)); ii++ {
+	ii := 0
+	for ; ii < min(len(rs1), len(rs2)); ii++ {
 		if rs1[ii] != rs2[ii] {
 			return ii
 		}
 	}
-	return 0
+	return ii
 }
 
 func min(x, y int) int {
@@ -94,6 +102,17 @@ func min(x, y int) int {
 		return x
 	}
 	return y
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+
+func debug(args ...interface{}) {
+
 }
 
 /*
