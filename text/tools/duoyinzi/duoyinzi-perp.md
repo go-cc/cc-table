@@ -41,7 +41,7 @@ Goal:
 
 - Turn [pinyin.txt from mozillazg/phrase-pinyin-data](https://github.com/mozillazg/phrase-pinyin-data/) from text file into Go lookup table/code. 
 - Show-off the Unix-Motto:
-  * every tool just does one thing, but does it best
+  * every tool just does one thing, but does it the best
   * putting all such versatile tools together, it can be as powerful as you can imagine
 
 ### duoyinzi-dict-gen.go
