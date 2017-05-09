@@ -36,7 +36,71 @@ grep -E "`cat ../../info/duoyinzi/duoyinzi-dict-J.txt | tr '\n' '|' | sed 's/|*$
 ```sh
 duoyinzi-dict-gen.pl > duoyinzi-dict-gen_test.txt
 
-cat duoyinzi-dict-gen_test.txt | go run duoyinzi-dict-gen.go 
+cat duoyinzi-dict-gen_test.txt | go run duoyinzi-dict-gen.go  | tee /tmp/dict.json
+{"A":{"B":{"C":{"D":{"G":"A B C D G ","K":"A B C D K "},"F":"A B C F ","G":{"H":{"I":{"J":{"K":"A B C G H I J K "}}},"L":{"L":"A B C G L L "}}}},"K":"A K ","L":{"M":{"N":{"O":{"P":{"Q":"A L M N O P Q "}}}}},"M":{"O":{"Q":"A M O Q "}}},"B":{"D":{"D":"B D D "}},"E":{"F":{"G":{"H":{"I":{"J":"E F G H I J "}}}}}}
+
+cat /tmp/dict.json | jq .
+```
+
+```json
+{
+  "A": {
+    "B": {
+      "C": {
+        "D": {
+          "G": "A B C D G ",
+          "K": "A B C D K "
+        },
+        "F": "A B C F ",
+        "G": {
+          "H": {
+            "I": {
+              "J": {
+                "K": "A B C G H I J K "
+              }
+            }
+          },
+          "L": {
+            "L": "A B C G L L "
+          }
+        }
+      }
+    },
+    "K": "A K ",
+    "L": {
+      "M": {
+        "N": {
+          "O": {
+            "P": {
+              "Q": "A L M N O P Q "
+            }
+          }
+        }
+      }
+    },
+    "M": {
+      "O": {
+        "Q": "A M O Q "
+      }
+    }
+  },
+  "B": {
+    "D": {
+      "D": "B D D "
+    }
+  },
+  "E": {
+    "F": {
+      "G": {
+        "H": {
+          "I": {
+            "J": "E F G H I J "
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 

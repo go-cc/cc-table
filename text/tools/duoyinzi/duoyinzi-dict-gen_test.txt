@@ -10,3 +10,4 @@ AK: A K
 ALMNOPQ: A L M N O P Q 
 AMOQ: A M O Q 
 BDD: B D D 
+EFGHIJ: E F G H I J 
