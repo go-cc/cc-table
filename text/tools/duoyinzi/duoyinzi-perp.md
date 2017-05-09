@@ -1,6 +1,8 @@
-# 多音字表
+# 多音字字典处理过程记录
 
-## Prepare 多音字表 list text file
+## 多音字表
+
+### Prepare 多音字表 list text file
 
 ```sh
 $ perl -ne 'print if /^\d/' duoyinzi-dict.md | wc -l 
@@ -9,7 +11,9 @@ $ perl -ne 'print if /^\d/' duoyinzi-dict.md | wc -l
 perl -ne 'if (/^\d/) { s/^\d+(?|?)//; s/(?| *:).*$//; print }' duoyinzi-dict.md | tee ../../info/duoyinzi/duoyinzi-dict-F.txt | ccjf fj -i | tee ../../info/duoyinzi/duoyinzi-dict-J.txt
 ```
 
-## Prepare 多音字词语表 list text file
+## 多音字词语表
+
+### Prepare 多音字词语表 list text file
 
 Generate:
 
@@ -31,7 +35,16 @@ cat ../../info/duoyinzi/duoyinzi-phrase-J.txt | cc2py -t 3 -p -i
 grep -E "`cat ../../info/duoyinzi/duoyinzi-dict-J.txt | tr '\n' '|' | sed 's/|*$//'`" ../../info/duoyinzi/duoyinzi-phrase-J.txt
 ```
 
-## duoyinzi-dict-gen.go
+## 多音字字典
+
+Goal: 
+
+- Turn [pinyin.txt from mozillazg/phrase-pinyin-data](https://github.com/mozillazg/phrase-pinyin-data/) from text file into Go lookup table/code. 
+- Show-off the Unix-Motto:
+  * every tool just does one thing, but does it best
+  * putting all such versatile tools together, it can be as powerful as you can imagine
+
+### duoyinzi-dict-gen.go
 
 ```sh
 duoyinzi-dict-gen.pl > duoyinzi-dict-gen_test.txt
