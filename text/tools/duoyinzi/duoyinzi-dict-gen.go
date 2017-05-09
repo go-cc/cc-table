@@ -18,6 +18,9 @@ import (
 // json string to return
 var bufRet = bytes.NewBufferString("")
 
+// var p = print X: use of builtin print not in function call
+// Remove "//D>" to debug
+
 func main() {
 	// https://godoc.org/github.com/spakin/awk
 	s := awk.NewScript()
@@ -36,17 +39,17 @@ func main() {
 			py += s.F(ii).String() + " "
 		}
 		ww = ww[:len(ww)-1] // last char is ":"
-		print(s.NR, ww, py)
+		//D>print(s.NR, ww, py)
 
 		// count of current word length and match length with last word
 		cLength := sa.Get("cLength").Int()
 		cMatch := commPrefixLen(sa.Get("wLast").String(), ww)
-		print(" ", cLength, " ", cMatch)
+		//D>print(" ", cLength, " ", cMatch)
 
 		lDiff := cLength - cMatch
 		if lDiff == 0 && sa.Get("wLast").String() != "" {
 			// the new phrase is longer than last one, ignore it
-			print("\n")
+			//D>println()
 			s.Next()
 		}
 
@@ -76,7 +79,7 @@ func main() {
 }
 
 func outputEntry(s, py string, start int) {
-	print(" output ", s, " from ", start, "\n")
+	//D>println(" output ", s, " from ", start)
 	rs := []rune(s)
 
 	for ii := start; ii < len(rs)-1; ii++ {
@@ -86,7 +89,7 @@ func outputEntry(s, py string, start int) {
 }
 
 func commPrefixLen(s1, s2 string) int {
-	print(" compare ", s1, ":", s2)
+	//D>print(" compare ", s1, ":", s2)
 	rs1, rs2 := []rune(s1), []rune(s2)
 	ii := 0
 	for ; ii < min(len(rs1), len(rs2)); ii++ {
@@ -112,7 +115,7 @@ func max(x, y int) int {
 }
 
 func debug(args ...interface{}) {
-
+	// print(args...) X: invalid use of ... with builtin print
 }
 
 /*
