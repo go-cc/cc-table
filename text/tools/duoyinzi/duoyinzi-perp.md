@@ -122,6 +122,7 @@ To make use the generated dictionary from above step.
 
 ```sh
  emd gen | grep -v duoyinzi-dict-gen.go > table.go
+ emd gen  --data '{"dictxt":"duoyinzi-dict-gen.txt"}' | grep -v duoyinzi-dict-gen.go > table.go
  ../duoyinzi-dict-gen.pl | awk -F':' '{print $1}' | tac | sed -n '1~3p' | tr '\n' 'X' | tee duoyinzi-test-in.txt
  emd gen -in input.e.md | sed '/duoyinzi-dict-gen.pl/{N;d}' | tee input.go
  go build -v 

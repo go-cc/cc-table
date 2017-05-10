@@ -12,5 +12,5 @@ dictxt: duoyinzi-dict-gen.txt
 package main
 
 var dyPhrase = []byte(`
-$ {{shell "go run ../duoyinzi-dict-gen.go < duoyinzi-dict-gen.txt"}}
+$ {{shell (concat "go run ../duoyinzi-dict-gen.go < " .dictxt) }}
 `)
