@@ -1,6 +1,3 @@
----
-dictxt: duoyinzi-dict-gen.txt
----
 ////////////////////////////////////////////////////////////////////////////
 // Purpose: Make use of the duoyinzi-phrase.txt converted json as Go dictionary
 // Authors: Tong Sun (c) 2017
@@ -12,5 +9,5 @@ dictxt: duoyinzi-dict-gen.txt
 package main
 
 var dyPhrase = []byte(`
-$ {{shell "go run ../duoyinzi-dict-gen.go < duoyinzi-dict-gen.txt"}}
+{"A":{"B":{"C":{"D":{"G":"A B C D G ","K":"A B C D K "},"F":"A B C F ","G":{"H":{"I":{"J":{"K":"A B C G H I J K "}}},"L":{"L":"A B C G L L "}}}},"K":"A K ","L":{"M":{"N":{"O":{"P":{"Q":"A L M N O P Q "}}}}},"M":{"O":{"Q":"A M O Q "}}},"B":{"D":{"D":"B D D "}},"E":{"F":{"G":{"H":{"I":{"J":"E F G H I J "}}}}}}
 `)
