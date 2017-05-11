@@ -8,7 +8,7 @@
 $ perl -ne 'print if /^\d/' duoyinzi-dict.md | wc -l 
 108
 
-perl -ne 'if (/^\d/) { s/^\d+(?|?)//; s/(?| *:).*$//; print }' duoyinzi-dict.md | tee ../../info/duoyinzi/duoyinzi-dict-F.txt | ccjf fj -i | tee ../../info/duoyinzi/duoyinzi-dict-J.txt
+perl -ne 'if (/^\d/) { s/^\d+(、|．)//; s/(：| *:).*$//; print }' duoyinzi-dict.md | tee ../../info/duoyinzi/duoyinzi-dict-F.txt | ccjf fj -i | tee ../../info/duoyinzi/duoyinzi-dict-J.txt
 ```
 
 ## 多音字词语表
@@ -17,7 +17,7 @@ perl -ne 'if (/^\d/) { s/^\d+(?|?)//; s/(?| *:).*$//; print }' duoyinzi-dict.md 
 
 Generate:
 
-    grep -E "`cat ../../info/duoyinzi/duoyinzi-dict-J.txt | tr '\n' '|' | sed 's/|*$//'`" ../../../external/pinyin-phrase-mozillazg/pinyin.txt | ccjf fj -i | sort -u | tee ../../info/duoyinzi/duoyinzi-phrase-J.txt  | ccjf jf -i | tee ../../info/duoyinzi/duoyinzi-phrase-F.txt
+    grep -E "`cat ../../info/duoyinzi/duoyinzi-dict-J.txt | tr '\n' '|' | sed 's/|*$//'`" ../../../../external/pinyin-phrase-mozillazg/pinyin.txt | ccjf fj -i | sort -u | tee ../../info/duoyinzi/duoyinzi-phrase-J.txt  | ccjf jf -i | tee ../../info/duoyinzi/duoyinzi-phrase-F.txt
 
 Check:
 
